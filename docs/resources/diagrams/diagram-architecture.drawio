@@ -1,0 +1,52 @@
+<mxfile host="app.diagrams.net" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36">
+  <diagram name="Página-1" id="WQYtVEyiXDdb5ENRqdX9">
+    <mxGraphModel dx="1452" dy="795" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" background="#FFFFFF" math="0" shadow="1">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="In0frjWOnFK9oHV9_oVB-13" edge="1" parent="1" source="In0frjWOnFK9oHV9_oVB-1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" target="In0frjWOnFK9oHV9_oVB-2">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="380" y="290" />
+              <mxPoint x="380" y="290" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="In0frjWOnFK9oHV9_oVB-1" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" value="&lt;font style=&quot;font-size: 24px;&quot;&gt;Presentación&lt;/font&gt;&lt;div&gt;&lt;font style=&quot;font-size: 16px;&quot;&gt;Tablero, piezas, controles y visualización del estado de la partida.&lt;/font&gt;&lt;/div&gt;&lt;div&gt;&lt;font style=&quot;color: rgb(66, 66, 66); font-size: 16px;&quot;&gt;No contiene reglas de ajedrez&lt;/font&gt;&lt;/div&gt;" vertex="1">
+          <mxGeometry height="180" width="480" x="174" y="80" as="geometry" />
+        </mxCell>
+        <mxCell id="In0frjWOnFK9oHV9_oVB-15" edge="1" parent="1" source="In0frjWOnFK9oHV9_oVB-2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="380" y="620" />
+            </Array>
+            <mxPoint x="380" y="620" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="In0frjWOnFK9oHV9_oVB-16" edge="1" parent="1" source="In0frjWOnFK9oHV9_oVB-2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="450" y="260" />
+            </Array>
+            <mxPoint x="450" y="260" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="In0frjWOnFK9oHV9_oVB-2" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" value="&lt;div&gt;&lt;font style=&quot;font-size: 24px;&quot;&gt;Aplicación (use cases)&lt;/font&gt;&lt;/div&gt;&lt;div&gt;&lt;font style=&quot;font-size: 16px;&quot;&gt;Coordina las acciones: iniciar partida, mover una pieza, reiniciar y consultar el estado.&lt;/font&gt;&lt;/div&gt;&lt;div&gt;&lt;font style=&quot;color: rgb(66, 66, 66); font-size: 16px;&quot;&gt;Conecta las acciones de la interfaz con el dominio&lt;/font&gt;&lt;/div&gt;" vertex="1">
+          <mxGeometry height="200" width="520" x="154" y="340" as="geometry" />
+        </mxCell>
+        <mxCell id="In0frjWOnFK9oHV9_oVB-5" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" value="&lt;div&gt;&lt;font style=&quot;font-size: 24px;&quot;&gt;Dominio (rule of chess)&lt;/font&gt;&lt;/div&gt;&lt;div&gt;&lt;font style=&quot;font-size: 16px;&quot;&gt;Gestiona el estado de la partida, los movimientos legales, los turnos, el jaque y el jaque mate.&lt;/font&gt;&lt;/div&gt;" vertex="1">
+          <mxGeometry height="175.5" width="486" x="171" y="620" as="geometry" />
+        </mxCell>
+        <mxCell id="In0frjWOnFK9oHV9_oVB-17" edge="1" parent="1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="450" y="540" />
+            </Array>
+            <mxPoint x="450" y="620" as="sourcePoint" />
+            <mxPoint x="450" y="540" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
