@@ -2,7 +2,6 @@
 
 Aplicación de ajedrez desarrollada como proyecto personal de aprendizaje, se orienta a la aplicación progresiva de tecnologías web, arquitectura de software y patrones de diseño.
 
-
 ## Sobre el proyecto
 
 Chess Game es un proyecto personal que busca desarrollar una aplicación de ajedrez mediante tres etapas evolutivas:
@@ -13,7 +12,6 @@ Chess Game es un proyecto personal que busca desarrollar una aplicación de ajed
 
 Este repositorio representa el inicio de una etapa de formación y crecimiento profesional en ingeniería de software. Lo que se busca es comprender las tecnologías utilizadas, justificar las decisiones arquitectónicas y aplicar buenas prácticas de desarrollo a través de la experiencia práctica.
 
-
 ## Objetivos
 
 - Aprender y aplicar tecnologías modernas de desarrollo web.
@@ -22,7 +20,6 @@ Este repositorio representa el inicio de una etapa de formación y crecimiento p
 - Desarrollar hábitos de documentación, pruebas y control de versiones
 - Construir una aplicación que progresivamente será más compleja, sin comprometer su mantenibilidad
 - Crear un protafolio que evidencie el aprendizaje, el razonamiento técnico y la evolución de las competencias adquiridas
-
 
 ## Plan de desarrollo
 
@@ -33,15 +30,12 @@ Este repositorio representa el inicio de una etapa de formación y crecimiento p
 * Validación de movimientos y estados de la partida
 * Controles para iniciar y reiniciar partidas
 
-
-
 ### 2. Versión 2 — Ajedrez contra la computadora
 
 - Integración de un motor de ajedrez.
 - Selección del color de las piezas (elección propia del jugador)
 - Diferentes niveles de dificultad
 - Reutilización de la lógica y los componentes desarrollados en la versión 1
-
 
 ### 3. Versión 3 — Ajedrez online
 
@@ -50,8 +44,6 @@ Este repositorio representa el inicio de una etapa de formación y crecimiento p
 - Sincronización de movimientos en tiempo real
 - Validación de movimientos y administración de partidas desde el servidor
 - Despliegue de la apilcación para su acceso público
-
-
 
 ## Arquitectura y diseño
 
@@ -77,7 +69,6 @@ Su implementación y las decisiones arquitectónicas relevantes de documentarán
 
 Toda la documentación técnica se realizará en docs/
 
-
 ## Tecnologías previstas
 
 | Tecnología  | Propósito                                              |
@@ -91,7 +82,6 @@ Toda la documentación técnica se realizará en docs/
 | Express      | Desarrollo de la API y servicios del servidor           |
 | Git y Github | Control de versiones y publicación del proyecto        |
 
-
 ## Documentación
 
 La documentación del proyecto incluirá:
@@ -99,7 +89,6 @@ La documentación del proyecto incluirá:
 - **docs/architecture.md**: estructura arquitectónica y resposabilidades de los componentes
 - **docs/design-patterns.md**: justificación y aplicación de los patrones de diseño
 - **docs/adr/**: registros de las decisiones arquitectónicas relevantes
-
 
 ## Filosofía de desarrollo
 
@@ -109,10 +98,8 @@ El proyecto se guiará por tres principios:
 - Justificación antes de implementar, elegir arquitecturas y patrones por sus beneficios concretos, no por la cantidad de conceptos aplicados
 - Evolucionar sin sobrediseñar, construir una base sencilla y ampliarla a medida que aparezcan nuevos requisitos
 
-
 ## Estado del proyecto
 
-
 ```Markdown
-Etapa actual: planificación y preparación de la arquitectura inicial
+Etapa actual: definición y documentación del diseño arquitectónico.
 ```
