@@ -88,7 +88,14 @@ La documentación del proyecto incluirá:
 
 - **docs/architecture.md**: estructura arquitectónica y resposabilidades de los componentes
 - **docs/design-patterns.md**: justificación y aplicación de los patrones de diseño
-- **docs/adr/**: registros de las decisiones arquitectónicas relevantes
+- [docs/adr/](docs/adr/README.md): registros de las decisiones arquitectónicas relevantes
+
+### Decisiones arquitectónicas (ADR)
+
+Los ADR registran el contexto, la decisión y sus consecuencias. Las decisiones aceptadas hasta el momento son:
+
+- [ADR-001: Adoptar una arquitectura en capas](docs/adr/001-layered-architecture.md).
+- [ADR-002: Utilizar chess.js para las reglas del ajedrez](docs/adr/002-chess-rules-library.md).
 
 ## Filosofía de desarrollo
 
