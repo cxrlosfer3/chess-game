@@ -86,6 +86,7 @@ Toda la documentación técnica se realizará en docs/
 
 La documentación del proyecto incluirá:
 
+- [docs/requirements.md](docs/requirements.md): alcance y criterios de aceptación de la versión local
 - **docs/architecture.md**: estructura arquitectónica y resposabilidades de los componentes
 - **docs/design-patterns.md**: justificación y aplicación de los patrones de diseño
 - [docs/adr/](docs/adr/README.md): registros de las decisiones arquitectónicas relevantes
