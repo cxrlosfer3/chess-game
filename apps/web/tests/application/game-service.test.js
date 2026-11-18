@@ -12,6 +12,29 @@ const reachPromotion = (service) => {
 };
 
 describe('GameService', () => {
+  it('reports check, preserves state after an illegal response and allows resolving it', () => {
+    const service = new GameService();
+    service.startGame();
+    play(service, [['e2', 'e4'], ['f7', 'f6'], ['d1', 'h5']]);
+    const checked = service.getGameState();
+    expect(checked).toMatchObject({ turn: 'black', inCheck: true, status: 'in_progress', result: null });
+    expect(service.makeMove('a7', 'a6')).toEqual({ status: 'REJECTED', reason: 'INVALID_MOVE', gameState: checked });
+    expect(service.getGameState()).toEqual(checked);
+    expect(service.makeMove('g7', 'g6')).toMatchObject({ status: 'COMPLETED', gameState: { inCheck: false, turn: 'white' } });
+  });
+
+  it('preserves state and prioritizes missing promotion over an invalid choice', () => {
+    const service = new GameService();
+    service.startGame();
+    service.makeMove('e2', 'e4');
+    const before = service.getGameState();
+    expect(service.resolvePromotion('king')).toEqual({
+      status: 'REJECTED', reason: 'NO_PENDING_PROMOTION', gameState: before,
+    });
+    expect(service.getGameState()).toEqual(before);
+    expect(service.makeMove('e7', 'e5').status).toBe('COMPLETED');
+  });
+
   it('returns absence on query and rejects changes before starting', () => {
     const service = new GameService();
     expect(service.getGameState()).toBeNull();

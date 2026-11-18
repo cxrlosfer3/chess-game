@@ -9,6 +9,87 @@ const pieceAt = (game, square) => game.getState().board.flat().find((piece) => p
 const promotionPosition = '7k/P7/8/8/8/8/8/7K w - - 0 1';
 
 describe('Game', () => {
+  it.each([['g8', 'f8', 'h8'], ['c8', 'd8', 'a8']])(
+    'castles black to %s and clears both origin squares', (to, rookTo, rookFrom) => {
+      const game = new Game('r3k2r/8/8/8/8/8/8/R3K2R b KQkq - 0 1');
+      const response = game.makeMove('e8', to);
+      expect(response.status).toBe('COMPLETED');
+      expect(pieceAt(game, 'e8')).toBeUndefined();
+      expect(pieceAt(game, rookFrom)).toBeUndefined();
+      expect(pieceAt(game, to)).toMatchObject({ type: 'k', color: 'b' });
+      expect(pieceAt(game, rookTo)).toMatchObject({ type: 'r', color: 'b' });
+      expect(response.gameState.turn).toBe('white');
+      expect(response.gameState.history).toHaveLength(1);
+    });
+
+  it.each([
+    ['castling while in check', 'k3r3/8/8/8/8/8/8/4K2R w K - 0 1', 'e1', 'g1'],
+    ['castling onto an attacked square', 'k5r1/8/8/8/8/8/8/4K2R w K - 0 1', 'e1', 'g1'],
+    ['castling through an occupied square', 'k7/8/8/8/8/8/8/4KB1R w K - 0 1', 'e1', 'g1'],
+    ['en passant exposing the king', 'k3r3/8/8/3pP3/8/8/8/4K3 w - d6 0 1', 'e5', 'd6'],
+  ])('rejects %s without changing any state', (_, fen, from, to) => {
+    const game = new Game(fen);
+    const before = game.getState();
+    expect(game.makeMove(from, to)).toEqual({ status: 'REJECTED', reason: 'INVALID_MOVE', gameState: before });
+    expect(game.getState()).toEqual(before);
+  });
+
+  it.each([
+    [['e1', 'f1'], ['e8', 'f8'], ['f1', 'e1'], ['f8', 'e8']],
+    [['h1', 'h2'], ['h8', 'h7'], ['h2', 'h1'], ['h7', 'h8']],
+  ])('does not restore castling rights when a king or rook returns', (first, second, third, fourth) => {
+    const game = new Game('r3k2r/8/8/8/8/8/8/R3K2R w KQkq - 0 1');
+    play(game, [first, second, third, fourth]);
+    const before = game.getState();
+    expect(game.makeMove('e1', 'g1').reason).toBe('INVALID_MOVE');
+    expect(game.getState()).toEqual(before);
+    expect(game.reset().gameState).toEqual(new Game().getState());
+  });
+
+  it('preserves the en passant opportunity across a rejected attempt', () => {
+    const game = new Game();
+    play(game, [['e2', 'e4'], ['a7', 'a6'], ['e4', 'e5'], ['d7', 'd5']]);
+    const before = game.getState();
+    expect(game.makeMove('e5', 'e7').reason).toBe('INVALID_MOVE');
+    expect(game.getState()).toEqual(before);
+    expect(game.makeMove('e5', 'd6').status).toBe('COMPLETED');
+    expect(pieceAt(game, 'd5')).toBeUndefined();
+  });
+
+  it('captures en passant with black in one turn', () => {
+    const game = new Game('7k/8/8/8/3Pp3/8/8/K7 b - d3 0 2');
+    const response = game.makeMove('e4', 'd3');
+    expect(response.status).toBe('COMPLETED');
+    expect(pieceAt(game, 'd4')).toBeUndefined();
+    expect(pieceAt(game, 'e4')).toBeUndefined();
+    expect(pieceAt(game, 'd3')).toMatchObject({ type: 'p', color: 'b' });
+    expect(response.gameState.turn).toBe('white');
+    expect(response.gameState.history).toHaveLength(1);
+  });
+
+  it('keeps the fifty-move counter intact on rejection and resets all counters on restart', () => {
+    const game = new Game('7k/8/8/8/8/8/8/R6K w - - 99 50');
+    const before = game.getState();
+    expect(game.makeMove('a1', 'b2').reason).toBe('INVALID_MOVE');
+    expect(game.getState()).toEqual(before);
+    expect(game.makeMove('a1', 'a2').gameState.result?.reason).toBe('fifty_move_rule');
+    expect(game.reset().gameState).toEqual(new Game().getState());
+  });
+
+  it.each([
+    ['7k/8/8/8/8/8/P7/R6K w - - 99 1', 'a2', 'a3'],
+    ['7k/8/8/8/8/8/r7/R6K w - - 99 1', 'a1', 'a2'],
+  ])('resets the fifty-move counter after pawn movement or capture', (fen, from, to) => {
+    const game = new Game(fen);
+    expect(game.makeMove(from, to).gameState).toMatchObject({ status: 'in_progress', result: null });
+    expect(game.getState().position.split(' ')[4]).toBe('0');
+  });
+
+  it('prioritizes checkmate over the fifty-move threshold', () => {
+    const game = new Game('7k/8/5KQ1/8/8/8/8/8 w - - 99 1');
+    expect(game.makeMove('g6', 'g7').gameState.result).toEqual({ type: 'win', reason: 'checkmate', winner: 'white' });
+  });
+
   it('starts with 32 pieces, white to move and no result', () => {
     const state = new Game().getState();
     expect(state.position).toBe(initialPosition);

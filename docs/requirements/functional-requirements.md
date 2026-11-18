@@ -4,7 +4,7 @@
 
 Permitir que dos personas jueguen una partida de ajedrez en un mismo navegador, con un tablero interactivo, movimientos válidos y un resultado identificable.
 
-Este documento define el comportamiento esperado y los criterios para considerar terminada la primera versión. Los requisitos describen trabajo pendiente; no indican funcionalidades ya implementadas.
+Este documento define el comportamiento esperado y los criterios para considerar terminada la primera versión. El estado de verificación se detalla en la sección 4.1; la existencia de un requisito no implica que todos sus criterios estén implementados.
 
 ## 2. Alcance
 
@@ -112,6 +112,22 @@ La versión local se considerará terminada cuando:
 - Se verifiquen los [escenarios EC-01 a EC-04](quality-scenarios.md) y se registren sus resultados, incluyendo la evaluación con participantes de EC-02.
 - Las pruebas y la compilación terminen correctamente siguiendo las instrucciones del repositorio.
 - La documentación de uso y el estado del proyecto estén actualizados.
+
+### 4.1. Verificación sin interfaz
+
+La suite se ejecuta con `npm test` desde la raíz, en Node.js, sin navegador ni DOM. Las pruebas comprueban la integración del dominio con `chess.js` real y los contratos de aplicación; no sustituyen la validación de la interfaz.
+
+| Requisito | Comprobación automatizada actual | Pendiente de presentación |
+| --- | --- | --- |
+| RF-01 | Posición inicial, turno, estado e inicio de otra partida. | Control de inicio y visualización del estado inicial. |
+| RF-02 | Movimientos, turnos, capturas y rechazo de piezas del otro color. | Clic y toque, selección visual, cambio de selección y clic en casilla vacía. |
+| RF-03 | Rechazo sin mutación, protección del rey y continuación con una respuesta legal. | Aviso legible y continuidad de la interacción visual. |
+| RF-04 | Enroques de ambos colores y restricciones; captura al paso, caducidad y protección del rey; cuatro elecciones de promoción, bloqueo y finalización tras promover. | Elección mediante diálogo y actualización visual de todas las piezas afectadas. |
+| RF-05 | Turno y jaque consultables, respuesta legal al jaque y estado coherente en las respuestas. | Correspondencia del tablero, indicador de turno y mensajes. |
+| RF-06 | Mate con ganador, cuatro motivos de tablas, bloqueo tras finalizar y conservación del resultado. | Visualización y permanencia del resultado. |
+| RF-07 | Reinicio en curso, tras finalizar y con promoción pendiente; restauración de posición, historial, derechos y contadores. | Limpieza de avisos, selección y diálogo de promoción. |
+
+Casos ejecutables: [pruebas del dominio](../../packages/chess/tests/domain/game.test.js) y [pruebas de aplicación](../../apps/web/tests/application/game-service.test.js). Esta revisión no declara terminada la versión local: siguen pendientes la interfaz, su validación manual y los escenarios de calidad que requieren participantes o cambios de presentación.
 
 ## 5. Referencias
 
