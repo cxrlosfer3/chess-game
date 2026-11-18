@@ -1,5 +1,7 @@
 # Dependencias
 node_modules/
+.vitest/
+coverage/
 
 # Variable de entorno
 .env

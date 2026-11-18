@@ -108,6 +108,30 @@ El proyecto se guiará por tres principios:
 - Justificación antes de implementar, elegir arquitecturas y patrones por sus beneficios concretos, no por la cantidad de conceptos aplicados
 - Evolucionar sin sobrediseñar, construir una base sencilla y ampliarla a medida que aparezcan nuevos requisitos
 
+## Instalación y pruebas
+
+Se requiere Node.js 22.12 o superior y npm. Para instalar las versiones fijadas en el archivo de bloqueo:
+
+```sh
+npm ci
+```
+
+Para ejecutar todas las pruebas una vez:
+
+```sh
+npm test
+```
+
+Para ejecutarlas durante el desarrollo al cambiar archivos:
+
+```sh
+npm run test:watch
+```
+
+En PowerShell, si la política de ejecución bloquea `npm.ps1`, utiliza `npm.cmd` en lugar de `npm`.
+
+Las pruebas usan Vitest en Node.js, sin navegador ni DOM. Todavía no hay interfaz, servidor de desarrollo ni comando de compilación.
+
 ## Estado del proyecto
 
 ```Markdown
