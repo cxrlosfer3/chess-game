@@ -7,7 +7,7 @@ Definir los elementos principales que representan una partida de ajedrez, sus re
 
 Las decisiones de arquitectura e integración se consultan en las [referencias](#9-referencias).
 
-Este documento precisa los [requisitos funcionales de la versión local](requirements/functional-requirements.md). Describe el diseño esperado; no implica que exista una implementación. Los nombres de los datos son conceptuales y no obligan a crear una clase por concepto.
+Este documento precisa los [requisitos funcionales de la versión local](requirements/functional-requirements.md). El dominio está implementado en [src/domain/game.js](../src/domain/game.js), con pruebas en [tests/domain/game.test.js](../tests/domain/game.test.js). Los nombres de los datos son conceptuales y no obligan a crear una clase por concepto.
 
 ## 2. Elementos del dominio
 
@@ -94,6 +94,10 @@ Antes de iniciar no existe una partida activa: esta ausencia la gestiona la apli
 | Resultado | Ausente durante la partida y obligatorio cuando está finalizada. |
 
 ### 5.1. Transiciones
+
+La implementación expone `status` como `in_progress` o `finished`, `turn` como `white` o `black`, y `position` en formato FEN para conservar los datos de reglas. `board` contiene las ocho filas del tablero, desde la fila 8 hasta la 1, con casillas vacías como `null` y piezas con `square`, `type` y `color`. Las piezas usan los códigos del motor (`p`, `n`, `b`, `r`, `q`, `k`; colores `w` y `b`). `history` contiene movimientos confirmados con origen, destino, color, pieza y notación SAN, además de captura o promoción cuando corresponde. `pendingPromotion` y `result` son `null` cuando están ausentes.
+
+`Game` admite una posición FEN inicial para preparar casos de prueba; la capa de aplicación siempre crea la posición estándar y no ofrece importación de partidas.
 
 | Situación y operación | Estado posterior |
 | --- | --- |
