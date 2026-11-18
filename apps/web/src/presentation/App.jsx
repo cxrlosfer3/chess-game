@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { GameService } from '../application/game-service.js';
 import { Board } from './Board.jsx';
+import { NotationGuide } from './NotationGuide.jsx';
 
 const COLORS = { white: 'blancas', black: 'negras' };
 const REJECTIONS = {
@@ -103,6 +104,7 @@ export function App({ service }) {
             <section className="history-panel" aria-label="Historial de movimientos">
               <div className="panel-heading"><h2>Movimientos</h2><span className="move-count">{history.length}</span></div>
               {!history.length ? <div className="empty-history"><span aria-hidden="true">↗</span><p>Cada partida tiene una historia.</p><small>Tu primera jugada aparecerá aquí.</small></div> : <div className="history-scroll"><table><thead><tr><th scope="col">N.º</th><th scope="col">Blancas</th><th scope="col">Negras</th></tr></thead><tbody>{rows.map((moves, index) => <tr key={index}><th scope="row">{index + 1}.</th><td>{moves[0].san}</td><td>{moves[1]?.san ?? '—'}</td></tr>)}</tbody></table></div>}
+              <NotationGuide />
             </section>
             <p className="game-note"><span aria-hidden="true">◈</span> Sin reloj. Solo el siguiente movimiento.</p>
           </aside>

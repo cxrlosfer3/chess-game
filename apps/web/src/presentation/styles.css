@@ -64,6 +64,22 @@ h1 { font: 500 clamp(32px, 4vw, 46px)/1.15 Georgia, serif; letter-spacing: -1.5p
 .empty-history > span { display: block; font-size: 24px; color: #a1ad92; margin-bottom: 13px; }
 .empty-history p { font-size: 11px; margin: 0 0 6px; }.empty-history small { font-size: 10px; color: #8a9281; }
 .history-scroll { max-height: 170px; overflow-y: auto; margin-top: 17px; }
+.notation-trigger { display: flex; align-items: center; justify-content: center; gap: 8px; width: 100%; margin-top: 12px; padding: 12px 8px; border: 0; border-top: 1px solid #dce0d1; background: transparent; color: #41513e; font-size: 12px; }
+.notation-trigger:hover { background: #ecf0e5; }
+.notation-trigger > span { display: grid; place-items: center; width: 18px; height: 18px; border: 1px solid #8c9b80; border-radius: 50%; font-weight: 600; }
+.notation-dialog { width: min(520px, calc(100% - 32px)); max-height: calc(100dvh - 48px); padding: 0; border: 1px solid #ccd3c2; border-radius: 12px; background: #faf9f4; color: #273b32; box-shadow: 0 24px 80px #17281f40; overflow-y: auto; }
+.notation-dialog::backdrop { background: #182c2473; backdrop-filter: blur(3px); }
+.notation-header { position: sticky; top: 0; display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 18px 22px; background: #faf9f4; border-bottom: 1px solid #dce0d1; }
+.notation-header h2 { font: 500 23px/1.25 Georgia, serif; margin: 0; }
+.notation-close { flex-shrink: 0; width: 36px; height: 36px; border: 1px solid #ccd3c2; border-radius: 50%; background: transparent; color: #41513e; font-size: 24px; line-height: 1; }
+.notation-close:hover { background: #ecf0e5; }
+html:has(.notation-dialog[open]) { overflow: hidden; }
+.notation-guide { padding: 20px 22px 10px; font-size: 13px; line-height: 1.65; color: #52614c; }
+.notation-guide p { margin: 0 0 12px; }
+.notation-guide strong { color: #34482f; font-weight: 600; }
+.notation-guide dl { display: grid; grid-template-columns: 64px minmax(0, 1fr); gap: 6px 10px; margin: 0 0 14px; }
+.notation-guide dt { font-family: monospace; font-weight: 600; color: #34482f; }
+.notation-guide dd { margin: 0; }
 table { width: 100%; border-collapse: collapse; font-size: 12px; text-align: left; font-variant-numeric: tabular-nums; }
 th, td { padding: 8px 6px; }thead { font-size: 10px; color: #78816f; }tbody tr { border-top: 1px solid #e8eadf; }tbody th { color: #7c8671; font-weight: 400; }td { font-family: monospace; }
 .game-note { font-size: 10px; color: #7d8773; text-align: center; line-height: 1.7; margin: 20px 0; }.game-note span { margin-right: 5px; }
