@@ -14,6 +14,11 @@ export class GameService {
     return this.#game ? this.#game.getState() : null;
   }
 
+  /** Read-only query; unavailable games or origins have no legal destinations. */
+  getLegalMoves(from) {
+    return this.#game ? this.#game.getLegalMoves(from) : [];
+  }
+
   /** @param {string} from Origin square. @param {string} to Destination square. */
   makeMove(from, to) {
     return this.#game ? this.#game.makeMove(from, to) : this.#notStarted();

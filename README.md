@@ -132,10 +132,30 @@ npm run test:watch
 
 En PowerShell, si la política de ejecución bloquea `npm.ps1`, utiliza `npm.cmd` en lugar de `npm`.
 
-Las pruebas usan Vitest en Node.js, sin navegador ni DOM. Todavía no hay interfaz, servidor de desarrollo ni comando de compilación.
+Las pruebas de dominio y aplicación usan Vitest en Node.js sin DOM. Las pruebas de interfaz utilizan React Testing Library y jsdom.
+
+Para abrir la interfaz local, ejecuta el siguiente comando y visita la URL que indique Vite:
+
+```sh
+npm run dev
+```
+
+Para generar la compilación de producción en `apps/web/dist`:
+
+```sh
+npm run build
+```
+
+Para revisar esa compilación localmente:
+
+```sh
+npm run preview
+```
+
+Inicia una partida, selecciona una pieza y pulsa un destino. Los puntos muestran movimientos legales y los aros indican capturas. La partida no se conserva al recargar la página.
 
 ## Estado del proyecto
 
 ```Markdown
-Etapa actual: dominio y capa de aplicación implementados con pruebas automatizadas. Interfaz pendiente.
+Etapa actual: juego local con interfaz React y pruebas de dominio, aplicación e interacción. Validación visual y evaluación de usabilidad pendientes.
 ```

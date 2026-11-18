@@ -2,6 +2,7 @@
 node_modules/
 .vitest/
 coverage/
+dist/
 
 # Variable de entorno
 .env

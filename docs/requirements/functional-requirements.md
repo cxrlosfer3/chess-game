@@ -39,6 +39,8 @@ El usuario podrá seleccionar una pieza y una casilla de destino mediante clic o
 
 - Solo se pueden seleccionar piezas del color que tiene el turno.
 - La selección actual se distingue visualmente y puede cambiarse por otra pieza del mismo color.
+- Al seleccionar una pieza se muestran sus destinos legales, distinguiendo las capturas. No se muestran movimientos que dejan al propio rey en jaque.
+- Los destinos se actualizan al cambiar de selección y se eliminan al deseleccionar, completar un movimiento o reiniciar. Mientras hay una promoción pendiente o la partida está finalizada no se muestran destinos.
 - Un movimiento legal actualiza el tablero y cede el turno al otro color.
 - Una captura retira la pieza capturada del tablero.
 - Seleccionar una casilla vacía sin una pieza seleccionada no cambia la partida.
@@ -115,9 +117,9 @@ La versión local se considerará terminada cuando:
 
 ### 4.1. Verificación sin interfaz
 
-La suite se ejecuta con `npm test` desde la raíz, en Node.js, sin navegador ni DOM. Las pruebas comprueban la integración del dominio con `chess.js` real y los contratos de aplicación; no sustituyen la validación de la interfaz.
+La suite se ejecuta con `npm test` desde la raíz. Las pruebas de dominio y aplicación usan Node.js sin DOM; las pruebas de presentación usan React Testing Library con jsdom. Comprueban la integración con `chess.js` real, los contratos de aplicación y los flujos de interacción; no sustituyen la validación visual en un navegador.
 
-| Requisito | Comprobación automatizada actual | Pendiente de presentación |
+| Requisito | Comprobación de lógica | Pendiente de verificación manual en navegador |
 | --- | --- | --- |
 | RF-01 | Posición inicial, turno, estado e inicio de otra partida. | Control de inicio y visualización del estado inicial. |
 | RF-02 | Movimientos, turnos, capturas y rechazo de piezas del otro color. | Clic y toque, selección visual, cambio de selección y clic en casilla vacía. |
@@ -127,7 +129,7 @@ La suite se ejecuta con `npm test` desde la raíz, en Node.js, sin navegador ni 
 | RF-06 | Mate con ganador, cuatro motivos de tablas, bloqueo tras finalizar y conservación del resultado. | Visualización y permanencia del resultado. |
 | RF-07 | Reinicio en curso, tras finalizar y con promoción pendiente; restauración de posición, historial, derechos y contadores. | Limpieza de avisos, selección y diálogo de promoción. |
 
-Casos ejecutables: [pruebas del dominio](../../packages/chess/tests/domain/game.test.js) y [pruebas de aplicación](../../apps/web/tests/application/game-service.test.js). Esta revisión no declara terminada la versión local: siguen pendientes la interfaz, su validación manual y los escenarios de calidad que requieren participantes o cambios de presentación.
+Casos ejecutables: [pruebas del dominio](../../packages/chess/tests/domain/game.test.js), [pruebas de aplicación](../../apps/web/tests/application/game-service.test.js) y [pruebas de presentación](../../apps/web/tests/presentation/App.test.jsx). Estas últimas cubren inicio, selección, destinos legales, capturas, movimientos, avisos, teclado, jaque, promoción, resultado y reinicio. Esta revisión no declara terminada la versión local: siguen pendientes la validación visual y manual en navegador y los escenarios de calidad que requieren participantes o cambios de presentación.
 
 ## 5. Referencias
 

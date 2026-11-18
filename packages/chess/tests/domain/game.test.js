@@ -9,6 +9,55 @@ const pieceAt = (game, square) => game.getState().board.flat().find((piece) => p
 const promotionPosition = '7k/P7/8/8/8/8/8/7K w - - 0 1';
 
 describe('Game', () => {
+  it('queries legal destinations without changing state or exposing mutable data', () => {
+    const game = new Game();
+    const before = game.getState();
+    expect(game.getLegalMoves('e2')).toEqual([
+      { from: 'e2', to: 'e3', capture: false }, { from: 'e2', to: 'e4', capture: false },
+    ]);
+    const moves = game.getLegalMoves('e2');
+    moves[0].to = 'h8';
+    expect(game.getLegalMoves('e2')[0].to).toBe('e3');
+    expect(game.getState()).toEqual(before);
+  });
+
+  it.each([undefined, null, 42, 'z9', 'e3', 'e7', 'a1'])(
+    'returns no destinations for invalid, empty, opposing or blocked origin %s', (from) => {
+      expect(new Game().getLegalMoves(from)).toEqual([]);
+    });
+
+  it('excludes moves exposing the king and includes legal castling', () => {
+    const pinned = new Game('4r1k1/8/8/8/8/8/4R3/4K3 w - - 0 1');
+    expect(pinned.getLegalMoves('e2').some((move) => move.to === 'd2')).toBe(false);
+    expect(pinned.getLegalMoves('e2')).toContainEqual({ from: 'e2', to: 'e8', capture: true });
+    const castle = new Game('r3k2r/8/8/8/8/8/8/R3K2R w KQkq - 0 1');
+    expect(castle.getLegalMoves('e1')).toEqual(expect.arrayContaining([
+      { from: 'e1', to: 'g1', capture: false }, { from: 'e1', to: 'c1', capture: false },
+    ]));
+  });
+
+  it('marks en passant as a capture even when the destination is empty', () => {
+    const game = new Game('7k/8/8/3pP3/8/8/8/K7 w - d6 0 2');
+    expect(game.getLegalMoves('e5')).toContainEqual({ from: 'e5', to: 'd6', capture: true });
+    expect(pieceAt(game, 'd6')).toBeUndefined();
+  });
+
+  it('groups promotion destinations and hides hints while promotion is pending', () => {
+    const game = new Game(promotionPosition);
+    expect(game.getLegalMoves('a7')).toEqual([{ from: 'a7', to: 'a8', capture: false }]);
+    game.makeMove('a7', 'a8');
+    const pending = game.getState();
+    expect(game.getLegalMoves('h1')).toEqual([]);
+    expect(game.getState()).toEqual(pending);
+  });
+
+  it('returns no moves after an automatic draw even when the engine has legal moves', () => {
+    const game = new Game();
+    const cycle = [['g1', 'f3'], ['g8', 'f6'], ['f3', 'g1'], ['f6', 'g8']];
+    play(game, [...cycle, ...cycle]);
+    expect(game.getLegalMoves('e2')).toEqual([]);
+  });
+
   it.each([['g8', 'f8', 'h8'], ['c8', 'd8', 'a8']])(
     'castles black to %s and clears both origin squares', (to, rookTo, rookFrom) => {
       const game = new Game('r3k2r/8/8/8/8/8/8/R3K2R b KQkq - 0 1');

@@ -24,6 +24,7 @@ Representa una partida de ajedrez y gestiona su estado actual.
 - Determinar si la partida ha terminado.
 - Mantener una solicitud de promoción pendiente y resolverla con la pieza elegida.
 - Proporcionar el resultado y los motivos de rechazo de las operaciones.
+- Consultar destinos legales de una pieza sin modificar la partida; identificar capturas, incluidas las capturas al paso, y agrupar las opciones de promoción por destino.
 
 La validación de los movimientos y las reglas específicas del ajedrez se delegan a `chess.js`.
 

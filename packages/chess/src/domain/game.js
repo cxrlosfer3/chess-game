@@ -40,6 +40,16 @@ export class Game {
     };
   }
 
+  /** Legal destinations, grouped by square so promotion choices appear once. */
+  getLegalMoves(from) {
+    if (!isSquare(from) || this.#pendingPromotion || this.#getResult()) return [];
+    const destinations = new Map();
+    for (const move of this.#chess.moves({ square: from, verbose: true })) {
+      destinations.set(move.to, { from: move.from, to: move.to, capture: Boolean(move.captured) });
+    }
+    return [...destinations.values()];
+  }
+
   /** @param {string} from Origin square. @param {string} to Destination square. */
   makeMove(from, to) {
     if (this.#getResult()) return this.#respond('REJECTED', 'GAME_FINISHED');

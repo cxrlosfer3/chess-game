@@ -12,6 +12,18 @@ const reachPromotion = (service) => {
 };
 
 describe('GameService', () => {
+  it('queries legal destinations through the application without modifying the game', () => {
+    const service = new GameService();
+    expect(service.getLegalMoves('e2')).toEqual([]);
+    service.startGame();
+    const before = service.getGameState();
+    expect(service.getLegalMoves('e2').map((move) => move.to)).toEqual(['e3', 'e4']);
+    expect(service.getGameState()).toEqual(before);
+    service.makeMove('e2', 'e4');
+    expect(service.getLegalMoves('e4')).toEqual([]);
+    expect(service.getLegalMoves('e7').map((move) => move.to)).toEqual(['e6', 'e5']);
+  });
+
   it('reports check, preserves state after an illegal response and allows resolving it', () => {
     const service = new GameService();
     service.startGame();

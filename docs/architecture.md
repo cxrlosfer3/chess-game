@@ -60,6 +60,7 @@ La aplicación mantiene la referencia a la única partida local. Antes de inicia
 | --- | --- | --- | --- | --- |
 | `startGame` | Ninguna. | Crea la primera partida; si ya existe, reutiliza el comportamiento de reinicio de `resetGame`. | `COMPLETED` con el estado inicial. | RF-01, RF-07 |
 | `getGameState` | Ninguna. | Consulta la partida sin modificarla. | Estado actual o ausencia explícita de partida. | RF-05, RF-06 |
+| `getLegalMoves` | `from`: casilla de origen. | Consulta los destinos legales al dominio sin modificar la partida. | Lista de objetos `{ from, to, capture }`, con cada destino una sola vez. Devuelve `[]` si no hay partida, el origen es inválido, no hay movimientos, hay promoción pendiente o la partida finalizó. | RF-02, RF-03, RF-04 |
 | `makeMove` | `from` y `to`: casillas de origen y destino en notación algebraica, por ejemplo `e2` y `e4`. | Comprueba que exista partida y solicita el movimiento al dominio. | `COMPLETED`, `PROMOTION_PENDING` o `REJECTED`, con el estado correspondiente. | RF-02, RF-03, RF-04, RF-05, RF-06 |
 | `resolvePromotion` | `piece`: una de `queen`, `rook`, `bishop` o `knight`. | Comprueba que exista partida y solicita al dominio resolver la promoción pendiente con la pieza elegida. | `COMPLETED` o `REJECTED`, con el estado correspondiente. | RF-04, RF-05, RF-06 |
 | `resetGame` | Ninguna. | Comprueba que exista partida y solicita su reinicio, incluso si está finalizada o tiene promoción pendiente. | `COMPLETED` con el estado inicial o `REJECTED` si no existe partida. | RF-07 |
@@ -79,6 +80,8 @@ Las operaciones que modifican la partida (`startGame`, `makeMove`, `resolvePromo
 `COMPLETED` describe el resultado de la operación, no la finalización de la partida. Un movimiento completado puede dejar la partida en curso o finalizada; esto se consulta en `gameState`.
 
 `getGameState` devuelve `gameState` con la misma representación, o `null` antes del inicio. Esta ausencia es una respuesta normal de consulta y no un rechazo.
+
+`getLegalMoves` devuelve directamente la lista de destinos; `capture` identifica también las capturas al paso, aunque el destino esté vacío. La presentación decide cómo dibujar esas marcas y no calcula la legalidad.
 
 Cada respuesta corresponde al estado posterior a la operación. Ante un rechazo se devuelve el estado conservado. Las respuestas no exponen la instancia del motor ni referencias que permitan modificar la partida directamente. Los rechazos esperados se comunican como datos, sin convertirlos en excepciones sin controlar ni en textos de interfaz.
 
@@ -139,7 +142,9 @@ apps/
   web/
     package.json
     src/application/game-service.js
+    src/presentation/
     tests/application/game-service.test.js
+    tests/presentation/App.test.jsx
 packages/
   chess/
     package.json
@@ -150,9 +155,9 @@ package-lock.json
 vitest.config.js
 ```
 
-- `apps/web` coordina la única partida local. Incorporará la capa de presentación cuando se construya la interfaz.
+- `apps/web` coordina la única partida local y contiene su interfaz React, servida y compilada con Vite.
 - `packages/chess` expone el dominio mediante `@chess-game/chess` y es el único paquete que declara `chess.js` como dependencia directa.
 - La raíz declara los workspaces, las herramientas de pruebas y los comandos comunes. Cada workspace declara sus propias dependencias; el archivo de bloqueo se mantiene en la raíz.
 - `apps/server` se incorporará al implementar el backend. Podrá consumir el mismo paquete de dominio y tendrá sus capas de presentación y aplicación. Todavía no existe ese workspace ni se han definido sus contratos.
 
-Las pruebas viven junto al workspace que comprueban y se ejecutan desde la raíz en Node.js. Esta organización conserva las reglas de dependencia de las capas; la aplicación web consume el paquete de dominio por su exportación pública.
+Las pruebas viven junto al workspace que comprueban y se ejecutan desde la raíz. Dominio y aplicación utilizan Node.js sin DOM; presentación utiliza React Testing Library con jsdom y su configuración en `apps/web/vitest.config.js`. Esta organización conserva las reglas de dependencia de las capas; la aplicación web consume el paquete de dominio por su exportación pública.

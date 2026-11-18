@@ -18,7 +18,10 @@
   },
   "scripts": {
     "test": "vitest run",
-    "test:watch": "vitest"
+    "test:watch": "vitest",
+    "dev": "npm run dev --workspace @chess-game/web",
+    "build": "npm run build --workspace @chess-game/web",
+    "preview": "npm run preview --workspace @chess-game/web"
   },
   "engines": {
     "node": ">=22.12.0"
