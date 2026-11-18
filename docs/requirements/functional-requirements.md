@@ -1,4 +1,4 @@
-# Requisitos de la versión 1: ajedrez local
+# Requisitos funcionales
 
 ## 1. Objetivo
 
@@ -101,34 +101,22 @@ El usuario podrá reiniciar tanto una partida en curso como una finalizada.
 - Se eliminan los movimientos previos, el resultado, los avisos, la selección y cualquier promoción pendiente.
 - Los derechos de enroque, la posibilidad de captura al paso y los contadores de tablas vuelven a su estado inicial.
 - La nueva partida permite realizar movimientos sin conservar condiciones de la anterior.
-
-## 4. Requisitos de calidad
-
-### RC-01: Separación de responsabilidades
-
-La implementación respetará la [arquitectura en capas](architecture.md): la presentación solicitará operaciones a la aplicación y el uso de chess.js se centralizará en el dominio. La lógica de la partida podrá comprobarse sin renderizar la interfaz.
-
-### RC-02: Interacción comprensible
-
-El tablero distinguirá piezas blancas y negras, selección y estados de la partida. Los controles tendrán etiquetas claras, los avisos se expresarán en texto y el diseño permitirá utilizar el tablero y los controles en pantallas de escritorio y móviles sin superposiciones.
-
-### RC-03: Ejecución reproducible
-
-El repositorio documentará los pasos para instalar dependencias, iniciar el entorno de desarrollo, ejecutar pruebas y generar la compilación. Se incluirá el archivo de bloqueo de dependencias correspondiente.
-
-## 5. Criterios de finalización
+## 4. Criterios de finalización de la versión
 
 La versión local se considerará terminada cuando:
 
-- Todos los criterios funcionales anteriores estén implementados.
+- Todos los criterios del documento de requisitos funcionales estén implementados.
 - Las pruebas automatizadas comprueben inicio, turnos, movimientos legales e inválidos, movimientos especiales, finalización y reinicio, incluyendo que los rechazos no alteran el estado.
 - Se verifique manualmente el flujo completo de la interfaz: iniciar, seleccionar, mover, recibir avisos, promocionar, finalizar y reiniciar.
 - Se revise la presentación en escritorio y móvil.
+- Se verifiquen los [escenarios EC-01 a EC-04](quality-scenarios.md) y se registren sus resultados, incluyendo la evaluación con participantes de EC-02.
 - Las pruebas y la compilación terminen correctamente siguiendo las instrucciones del repositorio.
 - La documentación de uso y el estado del proyecto estén actualizados.
 
-## 6. Referencias
+## 5. Referencias
 
-- [Modelo de dominio](domain-model.md).
-- [ADR-001: Arquitectura en capas](adr/001-layered-architecture.md).
-- [ADR-002: Uso de chess.js](adr/002-chess-rules-library.md).
+- [Modelo de dominio](../domain-model.md).
+- [ADR-001: Arquitectura en capas](../adr/001-layered-architecture.md).
+- [ADR-002: Uso de chess.js](../adr/002-chess-rules-library.md).
+
+- [Requisitos no funcionales](non-functional-requirements.md).

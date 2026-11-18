@@ -86,7 +86,9 @@ Toda la documentación técnica se realizará en docs/
 
 La documentación del proyecto incluirá:
 
-- [docs/requirements.md](docs/requirements.md): alcance y criterios de aceptación de la versión local
+- [Requisitos funcionales](docs/requirements/functional-requirements.md): alcance y criterios de aceptación de la versión local.
+- [Requisitos no funcionales](docs/requirements/non-functional-requirements.md): propiedades de calidad requeridas.
+- [Escenarios de calidad](docs/requirements/quality-scenarios.md): condiciones y medidas de verificación.
 - **docs/architecture.md**: estructura arquitectónica y resposabilidades de los componentes
 - **docs/design-patterns.md**: justificación y aplicación de los patrones de diseño
 - [docs/adr/](docs/adr/README.md): registros de las decisiones arquitectónicas relevantes
