@@ -1,4 +1,4 @@
-import { Game } from '../domain/game.js';
+import { Game } from '@chess-game/chess';
 
 /** Coordinates a single local game. Operations are synchronous. */
 export class GameService {

@@ -7,7 +7,7 @@ Definir los elementos principales que representan una partida de ajedrez, sus re
 
 Las decisiones de arquitectura e integración se consultan en las [referencias](#9-referencias).
 
-Este documento precisa los [requisitos funcionales de la versión local](requirements/functional-requirements.md). El dominio está implementado en [src/domain/game.js](../src/domain/game.js), con pruebas en [tests/domain/game.test.js](../tests/domain/game.test.js). Los nombres de los datos son conceptuales y no obligan a crear una clase por concepto.
+Este documento precisa los [requisitos funcionales de la versión local](requirements/functional-requirements.md). El dominio está implementado en [packages/chess/src/domain/game.js](../packages/chess/src/domain/game.js), con pruebas en [packages/chess/tests/domain/game.test.js](../packages/chess/tests/domain/game.test.js). Los nombres de los datos son conceptuales y no obligan a crear una clase por concepto.
 
 ## 2. Elementos del dominio
 

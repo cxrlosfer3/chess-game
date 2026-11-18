@@ -14,8 +14,7 @@
   "author": "carlos fernandez",
   "type": "module",
   "directories": {
-    "doc": "docs",
-    "test": "tests"
+    "doc": "docs"
   },
   "scripts": {
     "test": "vitest run",
@@ -27,7 +26,9 @@
   "devDependencies": {
     "vitest": "^5.1.1"
   },
-  "dependencies": {
-    "chess.js": "^1.4.0"
-  }
+  "private": true,
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ]
 }

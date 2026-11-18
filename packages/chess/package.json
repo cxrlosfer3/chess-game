@@ -1,0 +1,10 @@
+{
+  "name": "@chess-game/chess",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "exports": "./src/domain/game.js",
+  "dependencies": {
+    "chess.js": "^1.4.0"
+  }
+}

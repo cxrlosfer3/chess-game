@@ -112,6 +112,8 @@ El proyecto se guiará por tres principios:
 
 Se requiere Node.js 22.12 o superior y npm. Para instalar las versiones fijadas en el archivo de bloqueo:
 
+Ejecuta los comandos desde la raíz del repositorio. El proyecto utiliza npm workspaces; su distribución se describe en la [organización del repositorio](docs/architecture.md#7-organización-del-repositorio).
+
 ```sh
 npm ci
 ```

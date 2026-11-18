@@ -52,7 +52,7 @@ Esta capa no implementa las reglas del ajedrez, delega su ejecución a la capa d
 
 #### 4.2.1. Contratos de las operaciones
 
-Los siguientes contratos corresponden a los [requisitos funcionales de la versión local](requirements/functional-requirements.md). Se implementan en [src/application/game-service.js](../src/application/game-service.js), con pruebas en [tests/application/game-service.test.js](../tests/application/game-service.test.js). `GameService` coordina una partida mediante operaciones síncronas y delega su comportamiento en `Game`.
+Los siguientes contratos corresponden a los [requisitos funcionales de la versión local](requirements/functional-requirements.md). Se implementan en [apps/web/src/application/game-service.js](../apps/web/src/application/game-service.js), con pruebas en [apps/web/tests/application/game-service.test.js](../apps/web/tests/application/game-service.test.js). `GameService` coordina una partida mediante operaciones síncronas y delega su comportamiento en `Game`.
 
 La aplicación mantiene la referencia a la única partida local. Antes de iniciarla, esa referencia está ausente. Las operaciones se procesan en orden, completando una antes de atender la siguiente.
 
@@ -129,3 +129,30 @@ La arquitectura prioriza la separación de responsabilidades y la simplicidad, e
 Las dependencias externas se mantienen centralizadas para limitar su impacto sobre el resto del sistema. Si la evolución del proyecto lo justifica, podrán incorporarse mecanismos de abstracción que permitan sustituir dichas dependencias con cambios controlados.
 
 La solución busca mantener un equilibrio entre simplicidad, facilidad de prueba y mantenibilidad, sin añadir complejidad innecesaria.
+
+## 7. Organización del repositorio
+
+El repositorio utiliza npm workspaces para separar las aplicaciones del dominio reutilizable. Dentro de cada aplicación o paquete, el código se organiza por las capas que necesita.
+
+```text
+apps/
+  web/
+    package.json
+    src/application/game-service.js
+    tests/application/game-service.test.js
+packages/
+  chess/
+    package.json
+    src/domain/game.js
+    tests/domain/game.test.js
+package.json
+package-lock.json
+vitest.config.js
+```
+
+- `apps/web` coordina la única partida local. Incorporará la capa de presentación cuando se construya la interfaz.
+- `packages/chess` expone el dominio mediante `@chess-game/chess` y es el único paquete que declara `chess.js` como dependencia directa.
+- La raíz declara los workspaces, las herramientas de pruebas y los comandos comunes. Cada workspace declara sus propias dependencias; el archivo de bloqueo se mantiene en la raíz.
+- `apps/server` se incorporará al implementar el backend. Podrá consumir el mismo paquete de dominio y tendrá sus capas de presentación y aplicación. Todavía no existe ese workspace ni se han definido sus contratos.
+
+Las pruebas viven junto al workspace que comprueban y se ejecutan desde la raíz en Node.js. Esta organización conserva las reglas de dependencia de las capas; la aplicación web consume el paquete de dominio por su exportación pública.
