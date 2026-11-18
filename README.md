@@ -135,5 +135,5 @@ Las pruebas usan Vitest en Node.js, sin navegador ni DOM. Todavía no hay interf
 ## Estado del proyecto
 
 ```Markdown
-Etapa actual: definición y documentación del diseño arquitectónico.
+Etapa actual: dominio y capa de aplicación implementados con pruebas automatizadas. Interfaz pendiente.
 ```

@@ -52,7 +52,7 @@ Esta capa no implementa las reglas del ajedrez, delega su ejecución a la capa d
 
 #### 4.2.1. Contratos de las operaciones
 
-Los siguientes contratos corresponden a los [requisitos funcionales de la versión local](requirements/functional-requirements.md). Los nombres identifican operaciones, sin exigir clases, servicios o patrones concretos. Describen comportamiento pendiente de implementar.
+Los siguientes contratos corresponden a los [requisitos funcionales de la versión local](requirements/functional-requirements.md). Se implementan en [src/application/game-service.js](../src/application/game-service.js), con pruebas en [tests/application/game-service.test.js](../tests/application/game-service.test.js). `GameService` coordina una partida mediante operaciones síncronas y delega su comportamiento en `Game`.
 
 La aplicación mantiene la referencia a la única partida local. Antes de iniciarla, esa referencia está ausente. Las operaciones se procesan en orden, completando una antes de atender la siguiente.
 
